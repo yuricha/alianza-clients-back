@@ -13,24 +13,34 @@ import com.alianzaclientsback.model.Client;
 public class ClientRepository {
 	
 
+	private static final int minCode=100;
+	private static final int maxCode=1000;
+	
+	private static final int minUnit=100;
+	private static final int maxUnit=1000;	
+	
     private List<Client> listMemory;
 
     public List<Client> getListMemory() {
         return listMemory;
     }
     
-    private final static int NUMBER_OF_CLIENT=50;
+    private int NUMBER_OF_CLIENT=50;
     
-    public void initializeListClient(){
-    	listMemory = new ArrayList<>();
-        int minCode = 100;
-        int maxCode = 1000;
-        int minUnit = 100;
-        int maxUnit = 1000;
-        double minPrice = 10;
-        double maxPrice = 100;
+    
 
-        for (int i = 0; i < NUMBER_OF_CLIENT; i++) {
+    
+    public int getNUMBER_OF_CLIENT() {
+		return NUMBER_OF_CLIENT;
+	}
+
+	public void setNUMBER_OF_CLIENT(int nUMBER_OF_CLIENT) {
+		NUMBER_OF_CLIENT = nUMBER_OF_CLIENT;
+	}
+
+	public void initializeListClient(){
+    	listMemory = new ArrayList<>();
+        for (int i = 0; i < this.getNUMBER_OF_CLIENT(); i++) {
             Client product= new Client();
             product.setCodeClient(getRandomCode(minCode,maxCode)+"");
             product.setEmail(getRandomDescription()+"@gmail.com");
@@ -56,14 +66,8 @@ public class ClientRepository {
     }
 
     public void addClient(Client client) {
+    	client.setCodeClient(getRandomCode(minCode,maxCode)+"");
         listMemory.add(client);
     }
-    /**
-    public void discountUnitProduct(String codeProduct) {
-    	List<Product>productFound=getProduct(codeProduct);
-    	if(productFound.size()>0) {
-    		int unitNumber=Integer.parseInt(productFound.get(0).getUnit());    		
-    		productFound.get(0).setUnit((unitNumber--)+"");
-    	}
-    }/**/
+
 }
